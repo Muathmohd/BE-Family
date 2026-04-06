@@ -20,7 +20,6 @@ pool.on('connection', (connection) => {
 });
 
 pool.on('error', (err) => {
-  console.log('22222222');
   console.error('Unexpected database error:', err);
 });
 
