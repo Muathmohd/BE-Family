@@ -1,0 +1,376 @@
+{
+	"info": {
+		"_postman_id": "be-family-api-collection-v2",
+		"name": "BE-Family API Collection v2",
+		"description": "Complete API collection for BE-Family with Arabic error messages, custom token authentication, and all endpoints",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "1. Send OTP",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "x-api-key",
+								"value": "{{api_key}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"mobile\": \"{{mobile}}\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/user/otp/send",
+							"host": ["{{base_url}}"],
+							"path": ["api", "user", "otp", "send"]
+						},
+						"description": "Send OTP to user's mobile. Burns all previous OTPs. Check server console for OTP code. Requires x-api-key header."
+					},
+					"response": []
+				},
+				{
+					"name": "2. Verify OTP",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 200) {",
+									"    var jsonData = pm.response.json();",
+									"    if (jsonData.response && jsonData.response.token) {",
+									"        pm.environment.set(\"auth_token\", jsonData.response.token);",
+									"        console.log(\"✅ Token saved:\", jsonData.response.token);",
+									"    }",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "x-api-key",
+								"value": "{{api_key}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"mobile\": \"{{mobile}}\",\n  \"otp\": \"{{otp}}\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/user/otp/verify",
+							"host": ["{{base_url}}"],
+							"path": ["api", "user", "otp", "verify"]
+						},
+						"description": "Verify OTP and get authentication token. Token auto-saved to environment. Requires x-api-key header."
+					},
+					"response": []
+				},
+				{
+					"name": "3. Logout",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{api_key}}",
+								"type": "text"
+							},
+							{
+								"key": "x-api-token",
+								"value": "{{auth_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/auth/logout",
+							"host": ["{{base_url}}"],
+							"path": ["api", "auth", "logout"]
+						},
+						"description": "Logout and invalidate token. Requires both x-api-key and x-api-token headers."
+					},
+					"response": []
+				}
+			],
+			"description": "Authentication endpoints - OTP send, verify, and logout"
+		},
+		{
+			"name": "News",
+			"item": [
+				{
+					"name": "Get All News (Paginated)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{api_key}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/news?page=1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "news"],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"description": "Page number (default: 1)"
+								}
+							]
+						},
+						"description": "Get all active news with pagination (8 items per page). Excludes backend fields. Requires x-api-key header."
+					},
+					"response": []
+				},
+				{
+					"name": "Get News by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{api_key}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/news/1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "news", "1"]
+						},
+						"description": "Get specific news by ID with related media. Requires x-api-key header."
+					},
+					"response": []
+				}
+			],
+			"description": "News endpoints - Get all news and news by ID"
+		},
+		{
+			"name": "Content",
+			"item": [
+				{
+					"name": "Get About Family",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{api_key}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/content/about-family",
+							"host": ["{{base_url}}"],
+							"path": ["api", "content", "about-family"]
+						},
+						"description": "Get about family content from content table. Requires x-api-key header."
+					},
+					"response": []
+				}
+			],
+			"description": "Content endpoints"
+		},
+		{
+			"name": "Settings",
+			"item": [
+				{
+					"name": "Get All Settings",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{api_key}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/settings",
+							"host": ["{{base_url}}"],
+							"path": ["api", "settings"]
+						},
+						"description": "Get all settings from cache. Requires x-api-key header."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Template URL",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{api_key}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/settings/template-url",
+							"host": ["{{base_url}}"],
+							"path": ["api", "settings", "template-url"]
+						},
+						"description": "Get platform-specific template URL. Returns URL based on x-api-key platform. Requires x-api-key header."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Tree URL",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{api_key}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/settings/tree-url",
+							"host": ["{{base_url}}"],
+							"path": ["api", "settings", "tree-url"]
+						},
+						"description": "Get platform-specific family tree URL. Returns URL based on x-api-key platform. Requires x-api-key header."
+					},
+					"response": []
+				},
+				{
+					"name": "Clear Settings Cache",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{api_key}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/settings/cache/clear",
+							"host": ["{{base_url}}"],
+							"path": ["api", "settings", "cache", "clear"]
+						},
+						"description": "Clear settings cache. Requires x-api-key header."
+					},
+					"response": []
+				},
+				{
+					"name": "Reload Settings from DB",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{api_key}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/settings/reload",
+							"host": ["{{base_url}}"],
+							"path": ["api", "settings", "reload"]
+						},
+						"description": "Reload settings from database. Requires x-api-key header."
+					},
+					"response": []
+				}
+			],
+			"description": "Settings and cache management"
+		},
+		{
+			"name": "Protected Routes",
+			"item": [
+				{
+					"name": "Get User Profile",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{api_key}}",
+								"type": "text"
+							},
+							{
+								"key": "x-api-token",
+								"value": "{{auth_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/profile",
+							"host": ["{{base_url}}"],
+							"path": ["api", "profile"]
+						},
+						"description": "Get user profile. Requires both x-api-key and x-api-token headers."
+					},
+					"response": []
+				}
+			],
+			"description": "Protected endpoints requiring authentication"
+		},
+		{
+			"name": "Health Check",
+			"item": [
+				{
+					"name": "Server Status",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/",
+							"host": ["{{base_url}}"],
+							"path": [""]
+						},
+						"description": "Check server status (no headers required)"
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:3001",
+			"type": "string"
+		},
+		{
+			"key": "api_key",
+			"value": "ios_d7f8e9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8",
+			"type": "string"
+		},
+		{
+			"key": "auth_token",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "mobile",
+			"value": "1234567890",
+			"type": "string"
+		},
+		{
+			"key": "otp",
+			"value": "123456",
+			"type": "string"
+		}
+	]
+}

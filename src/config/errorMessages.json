@@ -1,0 +1,122 @@
+{
+  "2001": {
+    "en": "Mobile number is required",
+    "ar": "رقم الجوال مطلوب"
+  },
+  "2002": {
+    "en": "User not found or inactive",
+    "ar": "المستخدم غير موجود أو غير نشط"
+  },
+  "2003": {
+    "en": "Please wait 2 minutes before requesting a new OTP",
+    "ar": "يرجى الانتظار دقيقتين قبل طلب رمز تحقق جديد"
+  },
+  "2004": {
+    "en": "Missing or invalid password",
+    "ar": "كلمة المرور مفقودة أو غير صحيحة"
+  },
+  "2005": {
+    "en": "User not found",
+    "ar": "المستخدم غير موجود"
+  },
+  "2006": {
+    "en": "Invalid token",
+    "ar": "الرمز غير صحيح"
+  },
+  "2007": {
+    "en": "Failed to send OTP",
+    "ar": "فشل إرسال رمز التحقق"
+  },
+  "2008": {
+    "en": "Database error",
+    "ar": "خطأ في قاعدة البيانات"
+  },
+  "2009": {
+    "en": "Internal server error",
+    "ar": "خطأ داخلي في الخادم"
+  },
+  "2010": {
+    "en": "Invalid request parameters",
+    "ar": "معاملات الطلب غير صحيحة"
+  },
+  "2011": {
+    "en": "Failed to load settings",
+    "ar": "فشل تحميل الإعدادات"
+  },
+  "2012": {
+    "en": "Cache cleared successfully",
+    "ar": "تم مسح ذاكرة التخزين المؤقت بنجاح"
+  },
+  "2013": {
+    "en": "Failed to clear cache",
+    "ar": "فشل مسح ذاكرة التخزين المؤقت"
+  },
+  "3001": {
+    "en": "Invalid or expired OTP",
+    "ar": "رمز التحقق غير صحيح أو منتهي الصلاحية"
+  },
+  "3002": {
+    "en": "OTP already used",
+    "ar": "رمز التحقق مستخدم بالفعل"
+  },
+  "3003": {
+    "en": "OTP is required",
+    "ar": "رمز التحقق مطلوب"
+  },
+  "3004": {
+    "en": "Failed to verify OTP",
+    "ar": "فشل التحقق من رمز التحقق"
+  },
+  "3005": {
+    "en": "Token is required",
+    "ar": "الرمز مطلوب"
+  },
+  "3006": {
+    "en": "Invalid or expired token",
+    "ar": "الرمز غير صحيح أو منتهي الصلاحية"
+  },
+  "3007": {
+    "en": "Unauthorized access",
+    "ar": "وصول غير مصرح به"
+  },
+  "4001": {
+    "en": "API key is required",
+    "ar": "مفتاح API مطلوب"
+  },
+  "4002": {
+    "en": "Invalid API key",
+    "ar": "مفتاح API غير صحيح"
+  },
+  "4003": {
+    "en": "Failed to logout",
+    "ar": "فشل تسجيل الخروج"
+  },
+  "5001": {
+    "en": "Failed to retrieve news",
+    "ar": "فشل استرجاع الأخبار"
+  },
+  "5002": {
+    "en": "News ID is required",
+    "ar": "معرف الخبر مطلوب"
+  },
+  "5003": {
+    "en": "News not found",
+    "ar": "الخبر غير موجود"
+  },
+  "5004": {
+    "en": "Content not found",
+    "ar": "المحتوى غير موجود"
+  },
+  "5005": {
+    "en": "Failed to retrieve content",
+    "ar": "فشل استرجاع المحتوى"
+  },
+  "5006": {
+    "en": "Template URL not found",
+    "ar": "رابط القالب غير موجود"
+  },
+  "5007": {
+    "en": "Tree URL not found",
+    "ar": "رابط شجرة العائلة غير موجود"
+  }
+}
