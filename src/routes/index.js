@@ -13,7 +13,11 @@ const authMiddleware = require('../middleware/authMiddleware');
 // Apply API key validation to ALL routes
 router.use(apiKeyMiddleware);
 
-// Authentication routes (public - only require x-api-key)
+// ========================================
+// Public routes (only require x-api-key)
+// ========================================
+
+// Authentication routes
 router.post('/user/otp/send', userController.sendOtp);
 router.post('/user/otp/verify', userController.verifyOtp);
 
@@ -21,18 +25,26 @@ router.post('/user/otp/verify', userController.verifyOtp);
 router.get('/settings', settingsController.getSettings);
 router.post('/settings/cache/clear', settingsController.clearCache);
 router.post('/settings/reload', settingsController.reloadSettings);
-router.get('/settings/template-url', settingsController.getTemplateUrl);
-router.get('/settings/tree-url', settingsController.getTreeUrl);
 
-// News routes (public)
-router.get('/news', newsController.getAllNews);
-router.get('/news/:id', newsController.getNewsById);
-
-// Content routes (public)
-router.get('/content/about-family', contentController.getAboutFamily);
-
+// ========================================
 // Protected routes (require x-api-key + x-api-token)
+// ========================================
+
+// Settings routes (protected)
+router.get('/settings/template-url', authMiddleware, settingsController.getTemplateUrl);
+router.get('/settings/tree-url', authMiddleware, settingsController.getTreeUrl);
+
+// News routes (protected)
+router.get('/news', authMiddleware, newsController.getAllNews);
+router.get('/news/:id', authMiddleware, newsController.getNewsById);
+
+// Content routes (protected)
+router.get('/content/about-family', authMiddleware, contentController.getAboutFamily);
+
+// Auth routes (protected)
 router.post('/auth/logout', authMiddleware, authController.logout);
+
+// Profile routes (protected)
 router.get('/profile', authMiddleware, profileController.getProfile);
 
 module.exports = router;
