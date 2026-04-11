@@ -7,6 +7,7 @@ const profileController = require('../controllers/profileController');
 const authController = require('../controllers/authController');
 const newsController = require('../controllers/newsController');
 const contentController = require('../controllers/contentController');
+const projectController = require('../controllers/projectController');
 const apiKeyMiddleware = require('../middleware/apiKeyMiddleware');
 const authMiddleware = require('../middleware/authMiddleware');
 
@@ -40,6 +41,9 @@ router.get('/news/:id', authMiddleware, newsController.getNewsById);
 
 // Content routes (protected)
 router.get('/content/about-family', authMiddleware, contentController.getAboutFamily);
+
+// Project routes (protected)
+router.get('/projects', authMiddleware, projectController.getProjects);
 
 // Auth routes (protected)
 router.post('/auth/logout', authMiddleware, authController.logout);

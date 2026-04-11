@@ -1,4 +1,9 @@
 const db = require('../config/database');
+const settingsModel = require('./settingsModel');
+
+// Get all settings (cached or from database)
+
+// Returns: { key1: 'value1', key2: 'value2', ... }
 
 const userModel = {
   async findUserByMobile(mobile) {
@@ -29,10 +34,14 @@ const userModel = {
   },
 
   async createOtp(userId) {
+    
     try {
-      await this.burnAllOtpsForUser(userId);
       
-      const otp = Math.floor(100000 + Math.random() * 900000);
+      var otpEnable = settingsModel.getSetting('IS_OTP_ENABLE');
+
+      var otp = (otpEnable == 1) ? Math.floor(100000 + Math.random() * 900000) : 123456;
+      
+      await this.burnAllOtpsForUser(userId);
       
       const query = `
         INSERT INTO user_otp (user_id, otp, is_burned, created_at)
