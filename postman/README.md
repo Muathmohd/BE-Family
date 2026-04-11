@@ -59,10 +59,11 @@
 - ✅ GET `/api/profile` - Get user profile (x-api-key + x-api-token required)
 - ✅ PUT `/api/profile` - Update user profile (x-api-key + x-api-token required)
 
-### Health Check (1 endpoint)
+### Health Check (2 endpoints)
 - ✅ GET `/` - Server status (no headers required)
+- ✅ GET `/api/version-check` - Version and build info (x-api-key required)
 
-**Total: 15 endpoints**
+**Total: 16 endpoints**
 
 ---
 
@@ -86,6 +87,8 @@
 1. Open "Health Check" → "Server Status"
 2. Click **Send**
 3. Verify server is running
+4. "Health Check" → "Version Check" → Send
+5. Verify version and build info
 
 ---
 
@@ -175,6 +178,7 @@ x-api-key: {{api_key}}
 **Endpoints:**
 - Send OTP
 - Verify OTP
+- Version Check 🆕
 - Get Settings
 - Clear Cache
 - Reload Settings
@@ -237,7 +241,7 @@ All error messages now return in Arabic by default:
 
 ---
 
-**Postman collection updated with all 15 endpoints! 🎉**
+**Postman collection updated with all 16 endpoints! 🎉**
 
 ---
 
@@ -311,6 +315,25 @@ All error messages now return in Arabic by default:
       "is_active": 1
     },
     "message": "تم تحديث الملف الشخصي بنجاح"
+  }
+}
+```
+
+### 3. Version Check 🆕
+**Endpoint:** `GET /api/version-check`
+
+**Response:**
+```json
+{
+  "is_successful": true,
+  "error_code": "",
+  "error_msg": "",
+  "app_code": "BE-Family",
+  "response": {
+    "version": "BUILD-2026-04-11-01",
+    "commit": "419f9c7",
+    "time": "2026-04-11T12:30:45.123Z",
+    "status": "running"
   }
 }
 ```

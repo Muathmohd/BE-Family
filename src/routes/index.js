@@ -18,6 +18,22 @@ router.use(apiKeyMiddleware);
 // Public routes (only require x-api-key)
 // ========================================
 
+// Version check
+router.get('/version-check', (req, res) => {
+  res.json({
+    is_successful: true,
+    error_code: "",
+    error_msg: "",
+    app_code: "BE-Family",
+    response: {
+      version: "BUILD-2026-04-11-01",
+      commit: "419f9c7",
+      time: new Date().toISOString(),
+      status: "running"
+    }
+  });
+});
+
 // Authentication routes
 router.post('/user/otp/send', userController.sendOtp);
 router.post('/user/otp/verify', userController.verifyOtp);

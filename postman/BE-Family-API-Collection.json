@@ -413,6 +413,26 @@
 						"description": "Check server status (no headers required)"
 					},
 					"response": []
+				},
+				{
+					"name": "Version Check",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{api_key}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/version-check",
+							"host": ["{{base_url}}"],
+							"path": ["api", "version-check"]
+						},
+						"description": "Check API version, build info, and timestamp. Requires x-api-key header."
+					},
+					"response": []
 				}
 			]
 		}
