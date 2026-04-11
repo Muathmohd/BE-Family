@@ -6,15 +6,19 @@ class ResponseHelper {
       is_successful: true,
       error_code: "",
       error_msg: "",
+      app_code: "BE-Family",
       response: response
     };
   }
 
-  static error(errorCode, appCode = "BE-Family", response = {}, language = 'ar') {
+  static error(errorCode, customMessage = null, response = {}, language = 'ar') {
     const errorData = errorMessages[errorCode];
     let errorMsg = "Unknown error";
     
-    if (errorData) {
+    // If customMessage is provided, use it
+    if (customMessage && typeof customMessage === 'string') {
+      errorMsg = customMessage;
+    } else if (errorData) {
       errorMsg = errorData[language] || errorData['en'] || "Unknown error";
     }
     
@@ -22,7 +26,7 @@ class ResponseHelper {
       is_successful: false,
       error_code: parseInt(errorCode),
       error_msg: errorMsg,
-      app_code: appCode,
+      app_code: "BE-Family",
       response: response
     };
   }

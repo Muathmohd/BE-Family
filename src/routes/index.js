@@ -50,5 +50,6 @@ router.post('/auth/logout', authMiddleware, authController.logout);
 
 // Profile routes (protected)
 router.get('/profile', authMiddleware, profileController.getProfile);
+router.put('/profile', authMiddleware, profileController.updateProfile);
 
 module.exports = router;

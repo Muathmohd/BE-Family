@@ -1,8 +1,8 @@
 {
 	"info": {
-		"_postman_id": "be-family-api-collection-v2",
-		"name": "BE-Family API Collection v2",
-		"description": "Complete API collection for BE-Family with Arabic error messages, custom token authentication, and all endpoints",
+		"_postman_id": "be-family-api-collection-v3",
+		"name": "BE-Family API Collection v3",
+		"description": "Complete API collection for BE-Family with Arabic error messages, custom token authentication, projects API, and profile update - 15 endpoints total",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -296,7 +296,45 @@
 			"description": "Settings and cache management"
 		},
 		{
-			"name": "Protected Routes",
+			"name": "Projects",
+			"item": [
+				{
+					"name": "Get All Projects (Paginated)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{api_key}}",
+								"type": "text"
+							},
+							{
+								"key": "x-api-token",
+								"value": "{{auth_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/projects?page=1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "projects"],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"description": "Page number (default: 1)"
+								}
+							]
+						},
+						"description": "Get active projects with pagination (5 per page). Sorted by project_id DESC. City field returned as array. Requires both x-api-key and x-api-token headers."
+					},
+					"response": []
+				}
+			],
+			"description": "Project endpoints - Get projects with pagination"
+		},
+		{
+			"name": "Profile",
 			"item": [
 				{
 					"name": "Get User Profile",
@@ -322,9 +360,42 @@
 						"description": "Get user profile. Requires both x-api-key and x-api-token headers."
 					},
 					"response": []
+				},
+				{
+					"name": "Update User Profile",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "x-api-key",
+								"value": "{{api_key}}",
+								"type": "text"
+							},
+							{
+								"key": "x-api-token",
+								"value": "{{auth_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"birthday\": \"1995-05-15\",\n  \"status\": \"موظف\",\n  \"living\": \"الرياض\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/profile",
+							"host": ["{{base_url}}"],
+							"path": ["api", "profile"]
+						},
+						"description": "Update user profile (birthday, status, living). All fields optional. Status options: طالب, موظف, غير موظف, اخرى. Living options: الدمام, الخبر, الرياض, الاحساء, جده, المدينة, مكة, اخرى, الجبيل. Requires both x-api-key and x-api-token headers."
+					},
+					"response": []
 				}
 			],
-			"description": "Protected endpoints requiring authentication"
+			"description": "Profile endpoints - Get and update user profile"
 		},
 		{
 			"name": "Health Check",

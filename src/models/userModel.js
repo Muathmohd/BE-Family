@@ -148,6 +148,50 @@ const userModel = {
         });
       }, 100);
     });
+  },
+
+  async updateProfile(userId, profileData) {
+    try {
+      const allowedFields = ['birthday', 'status', 'living'];
+      const updateFields = [];
+      const values = [];
+
+      allowedFields.forEach(field => {
+        if (profileData[field] !== undefined) {
+          updateFields.push(`${field} = ?`);
+          values.push(profileData[field]);
+        }
+      });
+
+      if (updateFields.length === 0) {
+        throw new Error('No valid fields to update');
+      }
+
+      values.push(userId);
+
+      const query = `
+        UPDATE \`user\`
+        SET ${updateFields.join(', ')}
+        WHERE user_id = ?
+      `;
+
+      await db.query(query, values);
+
+      const updatedUser = await this.findUserById(userId);
+      return updatedUser;
+    } catch (error) {
+      throw new Error(`Failed to update profile: ${error.message}`);
+    }
+  },
+
+  async findUserById(userId) {
+    try {
+      const query = 'SELECT * FROM `user` WHERE user_id = ? AND is_active = 1';
+      const result = await db.query(query, [userId]);
+      return result.rows.length > 0 ? result.rows[0] : null;
+    } catch (error) {
+      throw new Error(`Database error: ${error.message}`);
+    }
   }
 };
 

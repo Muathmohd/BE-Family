@@ -1,4 +1,8 @@
 {
+  "1001": {
+    "en": "Invalid request data",
+    "ar": "بيانات الطلب غير صحيحة"
+  },
   "2001": {
     "en": "Mobile number is required",
     "ar": "رقم الجوال مطلوب"

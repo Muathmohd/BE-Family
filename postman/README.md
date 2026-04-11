@@ -1,8 +1,13 @@
-# Postman Collection - Updated v2
+# Postman Collection - Updated v3
 
-## ✅ What's New in v2
+## ✅ What's New in v3
 
-### Updated Features:
+### New Features (v3):
+1. ✅ **Projects API** - Get active projects with pagination (5 per page)
+2. ✅ **Update Profile API** - Users can update birthday, status, and living location
+3. ✅ **Profile section reorganized** - Separate folder for profile endpoints
+
+### Updated Features (v2):
 1. ✅ **All endpoints now have `x-api-key` header** (required for all APIs)
 2. ✅ **Port updated to 3001** (from 3000)
 3. ✅ **5 new API endpoints added:**
@@ -34,26 +39,30 @@
 - ✅ POST `/api/auth/logout` - Logout (x-api-key + x-api-token required)
 
 ### News (2 endpoints)
-- ✅ GET `/api/news?page=1` - Get all news paginated (x-api-key required)
-- ✅ GET `/api/news/:id` - Get news by ID (x-api-key required)
+- ✅ GET `/api/news?page=1` - Get all news paginated (x-api-key + x-api-token required)
+- ✅ GET `/api/news/:id` - Get news by ID (x-api-key + x-api-token required)
 
 ### Content (1 endpoint)
-- ✅ GET `/api/content/about-family` - Get about family content (x-api-key required)
+- ✅ GET `/api/content/about-family` - Get about family content (x-api-key + x-api-token required)
 
 ### Settings (5 endpoints)
 - ✅ GET `/api/settings` - Get all settings (x-api-key required)
-- ✅ GET `/api/settings/template-url` - Get template URL (x-api-key required)
-- ✅ GET `/api/settings/tree-url` - Get tree URL (x-api-key required)
+- ✅ GET `/api/settings/template-url` - Get template URL (x-api-key + x-api-token required)
+- ✅ GET `/api/settings/tree-url` - Get tree URL (x-api-key + x-api-token required)
 - ✅ POST `/api/settings/cache/clear` - Clear cache (x-api-key required)
 - ✅ POST `/api/settings/reload` - Reload settings (x-api-key required)
 
-### Protected Routes (1 endpoint)
+### Projects (1 endpoint) 🆕
+- ✅ GET `/api/projects?page=1` - Get active projects paginated (x-api-key + x-api-token required)
+
+### Profile (2 endpoints) 🆕
 - ✅ GET `/api/profile` - Get user profile (x-api-key + x-api-token required)
+- ✅ PUT `/api/profile` - Update user profile (x-api-key + x-api-token required)
 
 ### Health Check (1 endpoint)
 - ✅ GET `/` - Server status (no headers required)
 
-**Total: 13 endpoints**
+**Total: 15 endpoints**
 
 ---
 
@@ -80,7 +89,36 @@
 
 ---
 
-### Step 2: Test News APIs
+### Step 2: Authentication Flow
+```
+1. "Authentication" → "1. Send OTP" → Send
+2. Check console for OTP code
+3. Update OTP in "2. Verify OTP" body
+4. "Authentication" → "2. Verify OTP" → Send
+   ✅ Token auto-saved!
+```
+
+---
+
+### Step 3: Test Profile APIs 🆕
+```
+1. "Profile" → "Get User Profile" → Send
+2. "Profile" → "Update User Profile" → Send
+   (Update birthday, status, living)
+3. "Profile" → "Get User Profile" → Send (verify changes)
+```
+
+---
+
+### Step 4: Test Projects API 🆕
+```
+1. "Projects" → "Get All Projects (Paginated)" → Send
+2. Change page number to 2 → Send
+```
+
+---
+
+### Step 5: Test News APIs
 ```
 1. "News" → "Get All News" → Send
 2. "News" → "Get News by ID" → Send
@@ -88,7 +126,7 @@
 
 ---
 
-### Step 3: Test Content & Settings
+### Step 6: Test Content & Settings
 ```
 1. "Content" → "Get About Family" → Send
 2. "Settings" → "Get Template URL" → Send
@@ -97,15 +135,9 @@
 
 ---
 
-### Step 4: Authentication Flow
+### Step 7: Logout
 ```
-1. "Authentication" → "1. Send OTP" → Send
-2. Check console for OTP code
-3. Update OTP in "2. Verify OTP" body
-4. "Authentication" → "2. Verify OTP" → Send
-   ✅ Token auto-saved!
-5. "Protected Routes" → "Get User Profile" → Send
-6. "Authentication" → "3. Logout" → Send
+1. "Authentication" → "3. Logout" → Send
 ```
 
 ---
@@ -135,7 +167,7 @@ x-api-key: web_1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b
 
 ## 🎯 Request Headers Summary
 
-### All Public APIs (require only x-api-key):
+### Public APIs (require only x-api-key):
 ```
 x-api-key: {{api_key}}
 ```
@@ -143,11 +175,6 @@ x-api-key: {{api_key}}
 **Endpoints:**
 - Send OTP
 - Verify OTP
-- Get All News
-- Get News by ID
-- Get About Family
-- Get Template URL
-- Get Tree URL
 - Get Settings
 - Clear Cache
 - Reload Settings
@@ -160,6 +187,13 @@ x-api-token: {{auth_token}}
 
 **Endpoints:**
 - Get Profile
+- Update Profile 🆕
+- Get All Projects 🆕
+- Get All News
+- Get News by ID
+- Get About Family
+- Get Template URL
+- Get Tree URL
 - Logout
 
 ---
@@ -203,4 +237,80 @@ All error messages now return in Arabic by default:
 
 ---
 
-**Postman collection updated with all 13 endpoints! 🎉**
+**Postman collection updated with all 15 endpoints! 🎉**
+
+---
+
+## 🆕 New API Details (v3)
+
+### 1. Get Projects (Paginated)
+**Endpoint:** `GET /api/projects?page=1`
+
+**Query Parameters:**
+- `page` (optional): Page number, default 1
+
+**Response:**
+```json
+{
+  "is_successful": true,
+  "response": {
+    "projects": [
+      {
+        "project_id": 15,
+        "name": "Project Name",
+        "logo": "logo.jpg",
+        "description": "Description",
+        "category": "Category",
+        "city": ["الرياض", "جده"],
+        "external_url": "https://example.com",
+        "is_active": 1
+      }
+    ],
+    "pagination": {
+      "current_page": 1,
+      "per_page": 5,
+      "total": 25,
+      "total_pages": 5,
+      "has_next": true,
+      "has_prev": false
+    }
+  }
+}
+```
+
+### 2. Update User Profile
+**Endpoint:** `PUT /api/profile`
+
+**Request Body (all fields optional):**
+```json
+{
+  "birthday": "1995-05-15",
+  "status": "موظف",
+  "living": "الرياض"
+}
+```
+
+**Valid Values:**
+- **status**: طالب, موظف, غير موظف, اخرى
+- **living**: الدمام, الخبر, الرياض, الاحساء, جده, المدينة, مكة, اخرى, الجبيل
+- **birthday**: Date in YYYY-MM-DD format
+
+**Response:**
+```json
+{
+  "is_successful": true,
+  "response": {
+    "user": {
+      "user_id": 1,
+      "username": "Test User",
+      "mobile": "1234567890",
+      "birthday": "1995-05-15",
+      "status": "موظف",
+      "living": "الرياض",
+      "is_verified": 1,
+      "is_active": 1
+    },
+    "message": "تم تحديث الملف الشخصي بنجاح"
+  }
+}
+```

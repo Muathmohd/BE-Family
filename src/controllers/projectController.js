@@ -16,7 +16,6 @@ const projectController = {
         );
       }
 
-      
       // Get projects and total count
       const [projects, total] = await Promise.all([
         projectModel.getActiveProjects(page, limit),
