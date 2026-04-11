@@ -93,7 +93,13 @@ const userController = {
           user: {
             user_id: result.user.user_id,
             username: result.user.username,
-            mobile: result.user.mobile
+            mobile: result.user.mobile,
+            birthday: result.user.birthday,
+            status: result.user.status,
+            living: result.user.living,
+            is_verified: result.user.is_verified,
+            is_active: result.user.is_active,
+            created_at: result.user.created_at
           }
         })
       );

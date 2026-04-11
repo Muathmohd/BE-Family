@@ -24,7 +24,12 @@ const authMiddleware = async (req, res, next) => {
         user_id: tokenData.user_id,
         mobile: tokenData.mobile,
         username: tokenData.username,
-        is_verified: tokenData.user_is_verified
+        birthday: tokenData.birthday,
+        status: tokenData.status,
+        living: tokenData.living,
+        is_verified: tokenData.user_is_verified,
+        is_active: tokenData.is_active,
+        created_at: tokenData.user_created_at
       };
 
       req.token = token;

@@ -25,7 +25,17 @@ const tokenModel = {
   async validateToken(token) {
     try {
       const query = `
-        SELECT ut.*, u.user_id, u.username, u.mobile, u.is_verified as user_is_verified
+        SELECT 
+          ut.*, 
+          u.user_id, 
+          u.username, 
+          u.mobile, 
+          u.birthday,
+          u.status,
+          u.living,
+          u.is_verified as user_is_verified,
+          u.is_active,
+          u.created_at as user_created_at
         FROM user_token ut
         JOIN \`user\` u ON ut.user_id = u.user_id
         WHERE ut.token = ? 
