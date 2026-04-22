@@ -8,6 +8,7 @@ const authController = require('../controllers/authController');
 const newsController = require('../controllers/newsController');
 const contentController = require('../controllers/contentController');
 const projectController = require('../controllers/projectController');
+const aiController = require('../controllers/aiController');
 const apiKeyMiddleware = require('../middleware/apiKeyMiddleware');
 const authMiddleware = require('../middleware/authMiddleware');
 
@@ -42,6 +43,9 @@ router.post('/user/otp/verify', userController.verifyOtp);
 router.get('/settings', settingsController.getSettings);
 router.post('/settings/cache/clear', settingsController.clearCache);
 router.post('/settings/reload', settingsController.reloadSettings);
+
+// AI routes (public)
+router.post('/ai/rewrite', aiController.rewriteText);
 
 // ========================================
 // Protected routes (require x-api-key + x-api-token)

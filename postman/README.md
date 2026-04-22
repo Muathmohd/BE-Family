@@ -55,6 +55,9 @@
 ### Projects (1 endpoint) 🆕
 - ✅ GET `/api/projects?page=1` - Get active projects paginated (x-api-key + x-api-token required)
 
+### AI (1 endpoint) 🆕
+- ✅ POST `/api/ai/rewrite` - Rewrite text using AI (x-api-key required)
+
 ### Profile (2 endpoints) 🆕
 - ✅ GET `/api/profile` - Get user profile (x-api-key + x-api-token required)
 - ✅ PUT `/api/profile` - Update user profile (x-api-key + x-api-token required)
@@ -63,7 +66,7 @@
 - ✅ GET `/` - Server status (no headers required)
 - ✅ GET `/api/version-check` - Version and build info (x-api-key required)
 
-**Total: 16 endpoints**
+**Total: 17 endpoints**
 
 ---
 
@@ -179,6 +182,7 @@ x-api-key: {{api_key}}
 - Send OTP
 - Verify OTP
 - Version Check 🆕
+- AI Rewrite Text 🆕
 - Get Settings
 - Clear Cache
 - Reload Settings
@@ -241,7 +245,7 @@ All error messages now return in Arabic by default:
 
 ---
 
-**Postman collection updated with all 16 endpoints! 🎉**
+**Postman collection updated with all 17 endpoints! 🎉**
 
 ---
 
@@ -334,6 +338,47 @@ All error messages now return in Arabic by default:
     "commit": "419f9c7",
     "time": "2026-04-11T12:30:45.123Z",
     "status": "running"
+  }
+}
+```
+
+### 4. AI Rewrite Text 🆕
+**Endpoint:** `POST /api/ai/rewrite`
+
+**Request Body:**
+```json
+{
+  "text": "مرحبا بكم في تطبيق العائلة"
+}
+```
+
+**Success Response (AI worked):**
+```json
+{
+  "is_successful": true,
+  "error_code": "",
+  "error_msg": "",
+  "app_code": "BE-Family",
+  "response": {
+    "original_text": "مرحبا بكم في تطبيق العائلة",
+    "rewritten_text": "أهلاً وسهلاً بكم في تطبيق العائلة",
+    "success": true
+  }
+}
+```
+
+**Fallback Response (AI failed):**
+```json
+{
+  "is_successful": true,
+  "error_code": "",
+  "error_msg": "",
+  "app_code": "BE-Family",
+  "response": {
+    "original_text": "مرحبا بكم في تطبيق العائلة",
+    "rewritten_text": "مرحبا بكم في تطبيق العائلة",
+    "success": false,
+    "message": "فشل إعادة الكتابة، تم إرجاع النص الأصلي"
   }
 }
 ```

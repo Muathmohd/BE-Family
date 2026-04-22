@@ -2,7 +2,7 @@
 	"info": {
 		"_postman_id": "be-family-api-collection-v3",
 		"name": "BE-Family API Collection v3",
-		"description": "Complete API collection for BE-Family with Arabic error messages, custom token authentication, projects API, and profile update - 15 endpoints total",
+		"description": "Complete API collection for BE-Family with Arabic error messages, custom token authentication, projects API, profile update, and AI text rewrite - 17 endpoints total",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -396,6 +396,40 @@
 				}
 			],
 			"description": "Profile endpoints - Get and update user profile"
+		},
+		{
+			"name": "AI",
+			"item": [
+				{
+					"name": "Rewrite Text",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "x-api-key",
+								"value": "{{api_key}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"text\": \"مرحبا بكم في تطبيق العائلة\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/ai/rewrite",
+							"host": ["{{base_url}}"],
+							"path": ["api", "ai", "rewrite"]
+						},
+						"description": "Rewrite text using AI (DeepSeek). If AI fails, returns original text. Requires x-api-key header only."
+					},
+					"response": []
+				}
+			],
+			"description": "AI-powered text processing endpoints"
 		},
 		{
 			"name": "Health Check",
